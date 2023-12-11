@@ -19,6 +19,7 @@
 		3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */; };
 		3AB75F502B2784D400C75658 /* TTNormsPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */; };
 		3AB75F532B27861100C75658 /* TTNormsPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */; };
+		3AB75F552B27897700C75658 /* TypeProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TTNormsPro-Medium.ttf"; sourceTree = "<group>"; };
 		3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TTNormsPro-Bold.ttf"; sourceTree = "<group>"; };
+		3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				3AB75F492B277CE100C75658 /* HistoryView.swift */,
 				3AB75F472B277CCE00C75658 /* CartView.swift */,
 				3AB75F452B277CBE00C75658 /* MainView.swift */,
+				3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */,
 				3AB75F312B27783F00C75658 /* AppDelegate.swift */,
 				3AB75F332B27783F00C75658 /* SceneDelegate.swift */,
 				3AB75F352B27783F00C75658 /* MainTabBarView.swift */,
@@ -169,6 +172,7 @@
 				3AB75F4A2B277CE100C75658 /* HistoryView.swift in Sources */,
 				3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */,
 				3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */,
+				3AB75F552B27897700C75658 /* TypeProductsCollectionViewCell.swift in Sources */,
 				3AB75F462B277CBE00C75658 /* MainView.swift in Sources */,
 				3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */,
 				3AB75F342B27783F00C75658 /* SceneDelegate.swift in Sources */,
