@@ -17,7 +17,12 @@
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 				</dict>
 			</array>
-		</dict>
-	</dict>
+        </dict>
+    </dict>
+    <key>UIAppFonts</key>
+    <array>
+        <string>TTNormsPro-Medium.ttf</string>
+        <string>TTNormsPro-Bold.ttf</string>
+    </array>
 </dict>
 </plist>

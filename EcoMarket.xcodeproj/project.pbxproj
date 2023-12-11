@@ -9,19 +9,33 @@
 /* Begin PBXBuildFile section */
 		3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F312B27783F00C75658 /* AppDelegate.swift */; };
 		3AB75F342B27783F00C75658 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F332B27783F00C75658 /* SceneDelegate.swift */; };
-		3AB75F362B27783F00C75658 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F352B27783F00C75658 /* ViewController.swift */; };
+		3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F352B27783F00C75658 /* MainTabBarView.swift */; };
 		3AB75F3B2B27784000C75658 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F3A2B27784000C75658 /* Assets.xcassets */; };
 		3AB75F3E2B27784000C75658 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F3C2B27784000C75658 /* LaunchScreen.storyboard */; };
+		3AB75F462B277CBE00C75658 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F452B277CBE00C75658 /* MainView.swift */; };
+		3AB75F482B277CCE00C75658 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F472B277CCE00C75658 /* CartView.swift */; };
+		3AB75F4A2B277CE100C75658 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F492B277CE100C75658 /* HistoryView.swift */; };
+		3AB75F4C2B277CEE00C75658 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F4B2B277CEE00C75658 /* InfoView.swift */; };
+		3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */; };
+		3AB75F502B2784D400C75658 /* TTNormsPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */; };
+		3AB75F532B27861100C75658 /* TTNormsPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3AB75F2E2B27783F00C75658 /* EcoMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB75F312B27783F00C75658 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AB75F332B27783F00C75658 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3AB75F352B27783F00C75658 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3AB75F352B27783F00C75658 /* MainTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarView.swift; sourceTree = "<group>"; };
 		3AB75F3A2B27784000C75658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AB75F3D2B27784000C75658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AB75F3F2B27784000C75658 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AB75F452B277CBE00C75658 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3AB75F472B277CCE00C75658 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		3AB75F492B277CE100C75658 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		3AB75F4B2B277CEE00C75658 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TTNormsPro-Medium.ttf"; sourceTree = "<group>"; };
+		3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TTNormsPro-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +68,29 @@
 		3AB75F302B27783F00C75658 /* EcoMarket */ = {
 			isa = PBXGroup;
 			children = (
+				3AB75F4B2B277CEE00C75658 /* InfoView.swift */,
+				3AB75F492B277CE100C75658 /* HistoryView.swift */,
+				3AB75F472B277CCE00C75658 /* CartView.swift */,
+				3AB75F452B277CBE00C75658 /* MainView.swift */,
 				3AB75F312B27783F00C75658 /* AppDelegate.swift */,
 				3AB75F332B27783F00C75658 /* SceneDelegate.swift */,
-				3AB75F352B27783F00C75658 /* ViewController.swift */,
+				3AB75F352B27783F00C75658 /* MainTabBarView.swift */,
+				3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */,
 				3AB75F3A2B27784000C75658 /* Assets.xcassets */,
 				3AB75F3C2B27784000C75658 /* LaunchScreen.storyboard */,
 				3AB75F3F2B27784000C75658 /* Info.plist */,
+				3AB75F512B2784DF00C75658 /* Fonts */,
 			);
 			path = EcoMarket;
+			sourceTree = "<group>";
+		};
+		3AB75F512B2784DF00C75658 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */,
+				3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +152,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AB75F3E2B27784000C75658 /* LaunchScreen.storyboard in Resources */,
+				3AB75F532B27861100C75658 /* TTNormsPro-Bold.ttf in Resources */,
+				3AB75F502B2784D400C75658 /* TTNormsPro-Medium.ttf in Resources */,
 				3AB75F3B2B27784000C75658 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,9 +165,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AB75F362B27783F00C75658 /* ViewController.swift in Sources */,
+				3AB75F482B277CCE00C75658 /* CartView.swift in Sources */,
+				3AB75F4A2B277CE100C75658 /* HistoryView.swift in Sources */,
+				3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */,
+				3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */,
+				3AB75F462B277CBE00C75658 /* MainView.swift in Sources */,
 				3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */,
 				3AB75F342B27783F00C75658 /* SceneDelegate.swift in Sources */,
+				3AB75F4C2B277CEE00C75658 /* InfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
