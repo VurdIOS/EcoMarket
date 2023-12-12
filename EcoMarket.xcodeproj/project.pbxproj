@@ -20,6 +20,7 @@
 		3AB75F502B2784D400C75658 /* TTNormsPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */; };
 		3AB75F532B27861100C75658 /* TTNormsPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */; };
 		3AB75F552B27897700C75658 /* TypeProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */; };
+		3AB75F5E2B28611D00C75658 /* DetailProductCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F5D2B28611D00C75658 /* DetailProductCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		3AB75F4F2B2784D400C75658 /* TTNormsPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TTNormsPro-Medium.ttf"; sourceTree = "<group>"; };
 		3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TTNormsPro-Bold.ttf"; sourceTree = "<group>"; };
 		3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeProductsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3AB75F5D2B28611D00C75658 /* DetailProductCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,19 +72,17 @@
 		3AB75F302B27783F00C75658 /* EcoMarket */ = {
 			isa = PBXGroup;
 			children = (
-				3AB75F4B2B277CEE00C75658 /* InfoView.swift */,
-				3AB75F492B277CE100C75658 /* HistoryView.swift */,
-				3AB75F472B277CCE00C75658 /* CartView.swift */,
-				3AB75F452B277CBE00C75658 /* MainView.swift */,
-				3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */,
-				3AB75F312B27783F00C75658 /* AppDelegate.swift */,
-				3AB75F332B27783F00C75658 /* SceneDelegate.swift */,
-				3AB75F352B27783F00C75658 /* MainTabBarView.swift */,
-				3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */,
+				3AB75F592B285E9600C75658 /* InfoView */,
+				3AB75F582B285E8A00C75658 /* HistoryView */,
+				3AB75F572B285E8000C75658 /* CartView */,
+				3AB75F562B285E7000C75658 /* MainView */,
+				3AB75F5A2B285EAC00C75658 /* App */,
+				3AB75F5C2B285EC800C75658 /* TabBarView */,
+				3AB75F5B2B285EBE00C75658 /* Extensions */,
+				3AB75F512B2784DF00C75658 /* Fonts */,
 				3AB75F3A2B27784000C75658 /* Assets.xcassets */,
 				3AB75F3C2B27784000C75658 /* LaunchScreen.storyboard */,
 				3AB75F3F2B27784000C75658 /* Info.plist */,
-				3AB75F512B2784DF00C75658 /* Fonts */,
 			);
 			path = EcoMarket;
 			sourceTree = "<group>";
@@ -94,6 +94,65 @@
 				3AB75F522B27861100C75658 /* TTNormsPro-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3AB75F562B285E7000C75658 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F452B277CBE00C75658 /* MainView.swift */,
+				3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */,
+				3AB75F5D2B28611D00C75658 /* DetailProductCollectionView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		3AB75F572B285E8000C75658 /* CartView */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F472B277CCE00C75658 /* CartView.swift */,
+			);
+			path = CartView;
+			sourceTree = "<group>";
+		};
+		3AB75F582B285E8A00C75658 /* HistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F492B277CE100C75658 /* HistoryView.swift */,
+			);
+			path = HistoryView;
+			sourceTree = "<group>";
+		};
+		3AB75F592B285E9600C75658 /* InfoView */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F4B2B277CEE00C75658 /* InfoView.swift */,
+			);
+			path = InfoView;
+			sourceTree = "<group>";
+		};
+		3AB75F5A2B285EAC00C75658 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F312B27783F00C75658 /* AppDelegate.swift */,
+				3AB75F332B27783F00C75658 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3AB75F5B2B285EBE00C75658 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3AB75F5C2B285EC800C75658 /* TabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				3AB75F352B27783F00C75658 /* MainTabBarView.swift */,
+			);
+			path = TabBarView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AB75F482B277CCE00C75658 /* CartView.swift in Sources */,
+				3AB75F5E2B28611D00C75658 /* DetailProductCollectionView.swift in Sources */,
 				3AB75F4A2B277CE100C75658 /* HistoryView.swift in Sources */,
 				3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */,
 				3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */,

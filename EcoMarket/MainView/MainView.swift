@@ -49,7 +49,27 @@ class MainView: UIViewController {
     }
 }
 extension MainView: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("section is \(indexPath.section), row is \(indexPath.row)")
+        let vc = DetailProductCollectionView()
+        switch indexPath.row {
+        case 0:
+            vc.startTypeProduct = "Fruits"
+        case 1:
+            vc.startTypeProduct = "DryFruits"
+        case 2:
+            vc.startTypeProduct = "Vegetables"
+        case 3:
+            vc.startTypeProduct = "Grass"
+        case 4:
+            vc.startTypeProduct = "Drinks"
+        case 5:
+            vc.startTypeProduct = "Milks"
+        default:
+            vc.startTypeProduct = "ALL"
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension MainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
