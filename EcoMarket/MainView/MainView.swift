@@ -13,6 +13,16 @@ class MainView: UIViewController {
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
     )
+    private let net = NetworkManager.shared
+//    var categories: [ProductCategory]!
+    var products: [Product] = []{
+        didSet {
+            print(products.count)
+            print("done")
+        }
+    }
+    
+    
     
     private let collectionsImages = [
         UIImageView(image: UIImage(named: "CategoryCardFruits")),
@@ -30,7 +40,7 @@ class MainView: UIViewController {
             TypeProductsCollectionViewCell.self,
             forCellWithReuseIdentifier: TypeProductsCollectionViewCell.id
         )
-        
+        fetchProduct()
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -39,6 +49,17 @@ class MainView: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+    }
+    private func fetchProduct() {
+        net.fetchProductsList { [self] result in
+            switch result {
+            case .success(let products):
+                self.products = products
+                self.collectionView.reloadData()
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func setupNavigationController() {
@@ -74,7 +95,7 @@ extension MainView: UICollectionViewDelegate {
 extension MainView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // TODO - do not hardcoding
-        collectionsImages.count
+        products.count
         
     }
     
@@ -83,7 +104,8 @@ extension MainView: UICollectionViewDataSource {
             withReuseIdentifier: TypeProductsCollectionViewCell.id,
             for: indexPath
         )
-        cell.backgroundView = collectionsImages[indexPath.item]
+        // Короче тут сломались, потому что из за того что я гружу теперь картинки из инета, тут не бьется, нужно изменить ячейку, и начать грузить фотки из интернета, потом все должно заработать.
+        cell.backgroundView = products[indexPath.row].image
         return cell
     }
 }
