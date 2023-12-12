@@ -5,6 +5,16 @@
 //  Created by Камаль Атавалиев on 11.12.2023.
 //
 import UIKit
+
+enum Categories: String {
+    case all = "All"
+    case fruits = "Fruits"
+    case dryFruits = "DryFruits"
+    case vegetables = "Vegetables"
+    case grass = "Grass"
+    case drinks = "Drinks"
+    case milks = "Milks"
+}
 class MainTabBarView: UITabBarController {
 
     override func viewDidLoad() {

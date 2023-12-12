@@ -15,29 +15,23 @@ class DetailProductCollectionView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .MainBackgroundColor
         setupNavController()
         setupSearchBar()
         setupSegmentedController()
         setupConstraints()
-
-        view.backgroundColor = .MainBackgroundColor
-        print(startTypeProduct ?? "PUSTO")
-
-        
-        
-
-        // Do any additional setup after loading the view.
+        setSegmentControlState()
     }
     
     private func setupSegmentedController() {
         let items = ["Все", "Фрукты", "Сухофрукты", "Овощи", "Зелень", "Чай кофе", "Молочные продукты"]
         segmentedController = UISegmentedControl(items: items)
-        segmentedController.addTarget(self, action: #selector(add), for: .valueChanged)
+        segmentedController.addTarget(self, action: #selector(changeState), for: .valueChanged)
         segmentedController.translatesAutoresizingMaskIntoConstraints = false
         
         
     }
-    @objc func add(segmentedControl: UISegmentedControl) {
+    @objc func changeState(segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             print("Segment Все selected")
@@ -58,6 +52,27 @@ class DetailProductCollectionView: UIViewController {
             
         }
     }
+    
+    private func setSegmentControlState() {
+        switch startTypeProduct {
+        case Categories.fruits.rawValue:
+            segmentedController.selectedSegmentIndex = 1
+        case Categories.dryFruits.rawValue:
+            segmentedController.selectedSegmentIndex = 2
+        case Categories.vegetables.rawValue:
+            segmentedController.selectedSegmentIndex = 3
+        case Categories.grass.rawValue:
+            segmentedController.selectedSegmentIndex = 4
+        case Categories.drinks.rawValue:
+            segmentedController.selectedSegmentIndex = 5
+        case Categories.milks.rawValue:
+            segmentedController.selectedSegmentIndex = 6
+        default:
+            segmentedController.selectedSegmentIndex = 0
+            
+        }
+    }
+    
     private func setupSearchBar() {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.automaticallyShowsCancelButton = false
@@ -86,18 +101,6 @@ class DetailProductCollectionView: UIViewController {
     @objc private func popnav() {
         self.navigationController?.popViewController(animated: true)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 //func setNavigationBar() {
 //
