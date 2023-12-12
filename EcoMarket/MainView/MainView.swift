@@ -22,8 +22,6 @@ class MainView: UIViewController {
         }
     }
     
-    
-    
     private let collectionsImages = [
         UIImageView(image: UIImage(named: "CategoryCardFruits")),
         UIImageView(image: UIImage(named: "CategoryCardDryFruits")),
