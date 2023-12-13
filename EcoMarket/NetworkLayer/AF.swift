@@ -5,7 +5,7 @@
 //  Created by Камаль Атавалиев on 12.12.2023.
 //
 
-import Foundation
+import UIKit
 import Alamofire
 enum ApiURL: String {
     case OrderList = "https://neobook.online/ecobak/order-list"
@@ -17,8 +17,6 @@ class NetworkManager {
     static let shared = NetworkManager()
     
     private init() {}
-    
-    
     
     func fetchProductsList(completion: @escaping(Result<[Product], AFError>) -> Void) {
         let request = AF.request(ApiURL.ProductList.rawValue)
@@ -33,24 +31,57 @@ class NetworkManager {
         }
     }
     
-//    func fetchProductsCategories() -> [ProductCategory] {
-//        let request = AF.request(ApiURL.ProductCategoryList.rawValue)
-//        var products = [ProductCategory]()
-//        request.responseDecodable(of: [ProductCategory].self) { (response) in
-//            guard let productList = response.value else { return }
-//            products = productList
-//        }
-//        
-//    }
-    
-    func fetchOrderList() -> [Order] {
-        let request = AF.request(ApiURL.OrderList.rawValue)
-        var orders = [Order]()
-        request.responseDecodable(of: [Order].self) { (response) in
-            guard let orderList = response.value else { return }
-            orders = orderList
+    func fetchProductsCategories(completion: @escaping(Result<[ProductCategory], AFError>) -> Void) {
+        let request = AF.request(ApiURL.ProductCategoryList.rawValue)
+        request.responseDecodable(of: [ProductCategory].self) { (response) in
+            switch response.result {
+            case .success(let value):
+                let productCategoryList = value
+                completion(.success(productCategoryList))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
-        return orders
+    }
+    
+    func fetchOrderList(completion: @escaping(Result<[Order], AFError>) -> Void) {
+        let request = AF.request(ApiURL.OrderList.rawValue)
+        request.responseDecodable(of: [Order].self) { (response) in
+            switch response.result {
+            case .success(let value):
+                let orederList = value
+                completion(.success(orederList))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchImages(_ list: [String], completion: @escaping(Result<[Data], AFError>) -> Void) {
+      var items: [Data] = []
+      // 2
+      let fetchGroup = DispatchGroup()
+      
+      // 3
+      list.forEach { (url) in
+        // 4
+        fetchGroup.enter()
+        // 5
+          AF.request(url).validate().response { (response) in
+              switch response.result {
+              case .success(let data):
+                  items.append(data!)
+              case .failure(let error):
+                  completion(.failure(error))
+              }
+          // 6
+          fetchGroup.leave()
+        }
+      }
+      fetchGroup.notify(queue: .main) {
+          completion(.success(items))
+
+      }
     }
 }
 
