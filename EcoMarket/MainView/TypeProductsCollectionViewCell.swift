@@ -20,7 +20,7 @@ class TypeProductsCollectionViewCell: UICollectionViewCell {
                 .setImage(with: url)
         }
     }
-    
+
     private let categoriesName: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
