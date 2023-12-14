@@ -19,7 +19,11 @@ class MainView: UIViewController {
     }()
     private let net = NetworkManager.shared
 
-    var products: [ProductCategory] = []
+    var products: [ProductCategory] = [] {
+        didSet {
+            products.sort(by: {$0.id < $1.id})
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +39,13 @@ class MainView: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
+    
     private func fetchProductCategories() {
         net.fetchProductsCategories { [self] result in
             switch result {
             case .success(let products):
                 self.products = products
+                print(products)
                 collectionView.reloadData()
                 print("fetch categories done")
             case.failure(let error):
@@ -59,22 +65,24 @@ extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("section is \(indexPath.section), row is \(indexPath.row)")
         let vc = DetailProductCollectionView()
-        switch indexPath.row {
-        case 0:
-            vc.startTypeProduct = Categories.fruits.rawValue
-        case 1:
-            vc.startTypeProduct = Categories.dryFruits.rawValue
-        case 2:
-            vc.startTypeProduct = Categories.vegetables.rawValue
-        case 3:
-            vc.startTypeProduct = Categories.grass.rawValue
-        case 4:
-            vc.startTypeProduct = Categories.drinks.rawValue
-        case 5:
-            vc.startTypeProduct = Categories.milks.rawValue
-        default:
-            vc.startTypeProduct = Categories.all.rawValue
-        }
+        vc.startTypeProduct = indexPath.row + 1
+        vc.productsCategories = products
+//        switch indexPath.row {
+//        case 0:
+//            vc.startTypeProduct = Categories.fruits.rawValue
+//        case 1:
+//            vc.startTypeProduct = Categories.dryFruits.rawValue
+//        case 2:
+//            vc.startTypeProduct = Categories.vegetables.rawValue
+//        case 3:
+//            vc.startTypeProduct = Categories.grass.rawValue
+//        case 4:
+//            vc.startTypeProduct = Categories.drinks.rawValue
+//        case 5:
+//            vc.startTypeProduct = Categories.milks.rawValue
+//        default:
+//            vc.startTypeProduct = Categories.all.rawValue
+//        }
         navigationController?.pushViewController(vc, animated: true)
     }
 }

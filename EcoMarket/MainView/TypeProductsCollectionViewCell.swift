@@ -26,6 +26,7 @@ class TypeProductsCollectionViewCell: UICollectionViewCell {
         lbl.textColor = .white
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = UIFont(name: "TTNormsPro-Bold", size: 20)
+        lbl.numberOfLines = 0
         
         return lbl
     }()
@@ -63,6 +64,7 @@ class TypeProductsCollectionViewCell: UICollectionViewCell {
         categoriesName.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 10).isActive = true
 //        categoriesName.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -30).isActive = true
         categoriesName.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -20).isActive = true
+        categoriesName.widthAnchor.constraint(equalToConstant: 150).isActive = true
         
                 
         

@@ -8,10 +8,34 @@
 import UIKit
 
 class DetailProductCollectionView: UIViewController {
+    private let collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.register(
+            DetailProductCollectionViewCell.self,
+            forCellWithReuseIdentifier: DetailProductCollectionViewCell.id
+        )
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     let segment = UISegmentedControl()
-    var startTypeProduct: String!
+    var startTypeProduct: Int!
+    var productsCategories: [ProductCategory] = []
+    var products: [Product] = [] {
+        didSet {
+            print("\(products.count) products")
+            checkSegmentedControllerState()
+        }
+    }
+    var sortedProducts: [Product] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+
     let searchController = UISearchController()
     var segmentedController: UISegmentedControl!
+    private let net = NetworkManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,59 +44,42 @@ class DetailProductCollectionView: UIViewController {
         setupSearchBar()
         setupSegmentedController()
         setupConstraints()
-        setSegmentControlState()
+        fetchProducts()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    // TODO -  СДелать красивее
+    private func checkSegmentedControllerState() {
+        var sorted: [Product] = []
+        if segmentedController.selectedSegmentIndex == 0 {
+            sortedProducts = products
+            return
+        } else {
+            for product in products {
+                if product.category == segmentedController.selectedSegmentIndex {
+                    sorted.append(product)
+                }
+            }
+        }
+        sortedProducts = sorted
     }
     
     private func setupSegmentedController() {
         let items = ["Все", "Фрукты", "Сухофрукты", "Овощи", "Зелень", "Чай кофе", "Молочные продукты"]
+        
         segmentedController = UISegmentedControl(items: items)
         segmentedController.addTarget(self, action: #selector(changeState), for: .valueChanged)
         segmentedController.translatesAutoresizingMaskIntoConstraints = false
+        segmentedController.selectedSegmentIndex = startTypeProduct
         
         
     }
     @objc func changeState(segmentedControl: UISegmentedControl) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            print("Segment Все selected")
-        case 1:
-            print("Segment Фрукты selected")
-        case 2:
-            print("Segment Сухофрукты selected")
-        case 3:
-            print("Segment Овощи selected")
-        case 4:
-            print("Segment Зелень selected")
-        case 5:
-            print("Segment Чай кофе selected")
-        case 6:
-            print("Segment Молочные продукты selected")
-        default:
-            break
-            
-        }
+        checkSegmentedControllerState()
+   
     }
     
-    private func setSegmentControlState() {
-        switch startTypeProduct {
-        case Categories.fruits.rawValue:
-            segmentedController.selectedSegmentIndex = 1
-        case Categories.dryFruits.rawValue:
-            segmentedController.selectedSegmentIndex = 2
-        case Categories.vegetables.rawValue:
-            segmentedController.selectedSegmentIndex = 3
-        case Categories.grass.rawValue:
-            segmentedController.selectedSegmentIndex = 4
-        case Categories.drinks.rawValue:
-            segmentedController.selectedSegmentIndex = 5
-        case Categories.milks.rawValue:
-            segmentedController.selectedSegmentIndex = 6
-        default:
-            segmentedController.selectedSegmentIndex = 0
-            
-        }
-    }
-    
+
     private func setupSearchBar() {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.automaticallyShowsCancelButton = false
@@ -82,12 +89,19 @@ class DetailProductCollectionView: UIViewController {
     
     private func setupConstraints() {
         view.addSubview(segmentedController)
+        view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            segmentedController.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
+            segmentedController.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             segmentedController.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
             segmentedController.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 
+        ])
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 30),
+            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
     }
     
@@ -100,6 +114,46 @@ class DetailProductCollectionView: UIViewController {
     
     @objc private func popnav() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func fetchProducts() {
+        net.fetchProductsList { [self] result in
+            switch result {
+            case .success(let products):
+                self.products = products
+            case . failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+
+extension DetailProductCollectionView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // TODO - do not hardcoding
+        print(products.count)
+        return sortedProducts.count
+        
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: DetailProductCollectionViewCell.id,
+            for: indexPath
+        ) as! DetailProductCollectionViewCell
+        cell.Data = sortedProducts[indexPath.item]
+        print(indexPath.item)
+        
+        return cell
+    }
+}
+extension DetailProductCollectionView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (((view.frame.size.width/2.1))*0.9222) , height: (view.frame.size.width/2.1))
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 16)
     }
 }
 //func setNavigationBar() {

@@ -29,6 +29,7 @@
 		3AB75F7E2B28D17C00C75658 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F7D2B28D17C00C75658 /* Order.swift */; };
 		3AB75F802B29E5AC00C75658 /* images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F7F2B29E5AC00C75658 /* images.swift */; };
 		3AB75F832B2A37D200C75658 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3AB75F822B2A37D200C75658 /* Kingfisher */; };
+		3AB75F852B2AF40B00C75658 /* DetailProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F842B2AF40B00C75658 /* DetailProductCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		3AB75F7B2B28D13E00C75658 /* OrderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
 		3AB75F7D2B28D17C00C75658 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		3AB75F7F2B29E5AC00C75658 /* images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = images.swift; sourceTree = "<group>"; };
+		3AB75F842B2AF40B00C75658 /* DetailProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				3AB75F452B277CBE00C75658 /* MainView.swift */,
 				3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */,
 				3AB75F5D2B28611D00C75658 /* DetailProductCollectionView.swift */,
+				3AB75F842B2AF40B00C75658 /* DetailProductCollectionViewCell.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			files = (
 				3AB75F482B277CCE00C75658 /* CartView.swift in Sources */,
 				3AB75F5E2B28611D00C75658 /* DetailProductCollectionView.swift in Sources */,
+				3AB75F852B2AF40B00C75658 /* DetailProductCollectionViewCell.swift in Sources */,
 				3AB75F4A2B277CE100C75658 /* HistoryView.swift in Sources */,
 				3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */,
 				3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */,

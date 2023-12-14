@@ -56,33 +56,6 @@ class NetworkManager {
             }
         }
     }
-    
-    func fetchImages(_ list: [String], completion: @escaping(Result<[Data], AFError>) -> Void) {
-      var items: [Data] = []
-      // 2
-      let fetchGroup = DispatchGroup()
-      
-      // 3
-      list.forEach { (url) in
-        // 4
-        fetchGroup.enter()
-        // 5
-          AF.request(url).validate().response { (response) in
-              switch response.result {
-              case .success(let data):
-                  items.append(data!)
-              case .failure(let error):
-                  completion(.failure(error))
-              }
-          // 6
-          fetchGroup.leave()
-        }
-      }
-      fetchGroup.notify(queue: .main) {
-          completion(.success(items))
-
-      }
-    }
 }
 
 
