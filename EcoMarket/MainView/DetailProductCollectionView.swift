@@ -48,7 +48,7 @@ class DetailProductCollectionView: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    // TODO -  СДелать красивее
+    // TODO -  СДелать красивее›
     private func checkSegmentedControllerState() {
         var sorted: [Product] = []
         if segmentedController.selectedSegmentIndex == 0 {
@@ -111,7 +111,7 @@ class DetailProductCollectionView: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(popnav))
         title = "Продукты"
     }
-    
+    // Пздц день тяжелый был, сегодня не прогал
     @objc private func popnav() {
         self.navigationController?.popViewController(animated: true)
     }

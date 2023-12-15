@@ -14,4 +14,8 @@ extension UIColor {
     static var MainBackgroundColor: UIColor {
         #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1)
     }
+    static var CollectionCellBackgroundColor: UIColor {
+        #colorLiteral(red: 0.9728776813, green: 0.9728776813, blue: 0.9728776813, alpha: 1)
+    }
+    
 }

@@ -51,12 +51,14 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         
+        
         return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.clipsToBounds = false
+        contentView.backgroundColor = .CollectionCellBackgroundColor
         
         
 

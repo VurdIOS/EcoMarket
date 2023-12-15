@@ -67,22 +67,6 @@ extension MainView: UICollectionViewDelegate {
         let vc = DetailProductCollectionView()
         vc.startTypeProduct = indexPath.row + 1
         vc.productsCategories = products
-//        switch indexPath.row {
-//        case 0:
-//            vc.startTypeProduct = Categories.fruits.rawValue
-//        case 1:
-//            vc.startTypeProduct = Categories.dryFruits.rawValue
-//        case 2:
-//            vc.startTypeProduct = Categories.vegetables.rawValue
-//        case 3:
-//            vc.startTypeProduct = Categories.grass.rawValue
-//        case 4:
-//            vc.startTypeProduct = Categories.drinks.rawValue
-//        case 5:
-//            vc.startTypeProduct = Categories.milks.rawValue
-//        default:
-//            vc.startTypeProduct = Categories.all.rawValue
-//        }
         navigationController?.pushViewController(vc, animated: true)
     }
 }
