@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class DetailProductCollectionView: UIViewController {
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -32,6 +34,25 @@ class DetailProductCollectionView: UIViewController {
             collectionView.reloadData()
         }
     }
+    
+    let cartWidget: UIButton = {
+       let btn = UIButton()
+        btn.setImage(UIImage(named: "TabBarCart"), for: .normal)
+        btn.setTitle(" Корзина", for: .normal)
+        btn.backgroundColor = .AccentColor
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 24
+        btn.titleLabel?.font = UIFont(name: "TTNormsPro-Bold", size: 16)
+        
+        return btn
+    }()
+    
+    var orderedProducts: [Product] = [] {
+        didSet {
+            print(orderedProducts)
+        }
+    }
+    
 
     let searchController = UISearchController()
     var segmentedController: UISegmentedControl!
@@ -90,6 +111,7 @@ class DetailProductCollectionView: UIViewController {
     private func setupConstraints() {
         view.addSubview(segmentedController)
         view.addSubview(collectionView)
+        view.addSubview(cartWidget)
 
         NSLayoutConstraint.activate([
             segmentedController.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
@@ -103,6 +125,13 @@ class DetailProductCollectionView: UIViewController {
             collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
+        
+        NSLayoutConstraint.activate([
+            cartWidget.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            cartWidget.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            cartWidget.widthAnchor.constraint(greaterThanOrEqualToConstant: 168),
+            cartWidget.heightAnchor.constraint(equalToConstant: 48),
+        ])
     }
     
     private func setupNavController() {
@@ -111,7 +140,7 @@ class DetailProductCollectionView: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(popnav))
         title = "Продукты"
     }
-    // Пздц день тяжелый был, сегодня не прогал
+    
     @objc private func popnav() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -150,11 +179,22 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
 }
 extension DetailProductCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (((view.frame.size.width/2.1))*0.9222) , height: (view.frame.size.width/2.1))
+        let width = (view.frame.width - 43)/2
+        return CGSize(width: width , height: 228)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 16)
     }
+}
+
+extension DetailProductCollectionView: DetailProductCollectionViewCellDelegate {
+    
+    func append(products: Product) {
+        orderedProducts.append(products)
+        print("delegater")
+    }
+    
+    
 }
 //func setNavigationBar() {
 //

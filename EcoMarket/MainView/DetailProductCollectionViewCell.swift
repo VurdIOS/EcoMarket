@@ -7,8 +7,20 @@
 
 import UIKit
 
+protocol DetailProductCollectionViewCellDelegate {
+//    var orderedProducts: [Product] { get set }
+    func append(products: Product)
+}
+
 class DetailProductCollectionViewCell: UICollectionViewCell {
     static let id = "DetailProductCollectionViewCell"
+    
+    private var amountProduct = 0 {
+        didSet {
+            amountLabel.text = String(amountProduct)
+        }
+    }
+    var delegate: DetailProductCollectionViewCellDelegate?
     
     var Data: Product? {
         didSet {
@@ -17,7 +29,6 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
                 return }
             productName.text = Data.title
             productCost.text = "\(Data.price.components(separatedBy: ".")[0]) c"
-            print("Данные поступили в ячейку")
             let url = URL(string: Data.image)
             imageView.kf
                 .setImage(with: url)
@@ -46,19 +57,80 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 100
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 10
+
         imageView.clipsToBounds = true
-        
-        
         return imageView
+    }()
+    
+    private let buttonMinus: UIButton = {
+       let btn = UIButton()
+        btn.setTitle("-", for: .normal)
+        btn.backgroundColor = .AccentColor
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 16
+        btn.frame.size.width = 32
+        btn.frame.size.height = 32
+    
+        return btn
+    }()
+    
+    private let buttonPlus: UIButton = {
+       let btn = UIButton()
+        btn.setTitle("+", for: .normal)
+        btn.backgroundColor = .AccentColor
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 16
+        btn.frame.size.width = 32
+        btn.frame.size.height = 32
+        
+        return btn
+    }()
+    
+    private let buttonAdd: UIButton = {
+       let btn = UIButton()
+        btn.setTitle("Добавить", for: .normal)
+        btn.backgroundColor = .AccentColor
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 12
+        
+        
+        return btn
+    }()
+    
+    private lazy var amountLabel: UILabel = {
+       let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.text = String(amountProduct)
+        lbl.textAlignment = .center
+        
+        return lbl
+        
+    }()
+    private let HStackAmountBlock: UIStackView = {
+        let stack = UIStackView()
+        
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.alignment = .fill
+        stack.spacing = 16.0
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        return stack
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupTargetsForButtons()
         contentView.clipsToBounds = false
         contentView.backgroundColor = .CollectionCellBackgroundColor
+        HStackAmountBlock.addArrangedSubview(buttonMinus)
+        HStackAmountBlock.addArrangedSubview(amountLabel)
+        HStackAmountBlock.addArrangedSubview(buttonPlus)
+        
         
         
 
@@ -66,16 +138,30 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(productName)
         contentView.addSubview(productCost)
-        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        contentView.addSubview(HStackAmountBlock)
+        contentView.addSubview(buttonAdd)
+        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant: 4).isActive = true
+        imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -4).isActive = true
+        imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4).isActive = true
         imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.421).isActive = true
-        productName.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
-        productName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
-        productName.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
-        productCost.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
-        productCost.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 20).isActive = true
-        productName.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
+        productName.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 4).isActive = true
+        productName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
+        productName.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -4).isActive = true
+        productCost.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 4).isActive = true
+        productCost.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 24).isActive = true
+
+        
+        HStackAmountBlock.topAnchor.constraint(equalTo: productCost.bottomAnchor, constant: 16).isActive = true
+        HStackAmountBlock.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -8).isActive = true
+        HStackAmountBlock.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        HStackAmountBlock.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        buttonAdd.topAnchor.constraint(equalTo: productCost.bottomAnchor, constant: 16).isActive = true
+        buttonAdd.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -8).isActive = true
+        buttonAdd.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        buttonAdd.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        
+        HStackAmountBlock.isHidden = true
         
                 
         
@@ -89,10 +175,55 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
     }
+    
+    private func setupTargetsForButtons() {
+        buttonPlus.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        buttonMinus.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        buttonAdd.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func plusButtonTapped() {
+        if amountProduct >= 1 {
+            amountProduct += 1
+            Data?.quantity += 1
+            delegate?.append(products: Data!)
+        
+        }
+    }
+    
+    @objc func minusButtonTapped() {
+        if amountProduct == 1 {
+            amountProduct -= 1
+            Data?.quantity -= 1
+            changeHiddenStateOfAmountBlock()
+        } else if amountProduct >= 1 {
+            amountProduct -= 1
+            Data?.quantity -= 1
+            
+        }
+    }
+    
+    @objc func addButtonTapped() {
+        delegate?.append(products: Data!)
+        if amountProduct == 0 {
+            amountProduct = 1
+            Data?.quantity += 1
+            changeHiddenStateOfAmountBlock()
+        }
+    }
+    
+    private func changeHiddenStateOfAmountBlock() {
+        HStackAmountBlock.isHidden.toggle()
+        buttonAdd.isHidden.toggle()
+        
+    }
+    
+    
 }
