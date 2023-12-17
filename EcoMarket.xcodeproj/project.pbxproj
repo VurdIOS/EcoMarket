@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A39AB612B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39AB602B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift */; };
 		3A86C1502B2E076D009D49DD /* OrederedProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86C14F2B2E076D009D49DD /* OrederedProducts.swift */; };
 		3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F312B27783F00C75658 /* AppDelegate.swift */; };
 		3AB75F342B27783F00C75658 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F332B27783F00C75658 /* SceneDelegate.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A39AB602B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A86C14F2B2E076D009D49DD /* OrederedProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrederedProducts.swift; sourceTree = "<group>"; };
 		3AB75F2E2B27783F00C75658 /* EcoMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB75F312B27783F00C75658 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				3AB75F542B27897700C75658 /* TypeProductsCollectionViewCell.swift */,
 				3AB75F5D2B28611D00C75658 /* DetailProductCollectionView.swift */,
 				3AB75F842B2AF40B00C75658 /* DetailProductCollectionViewCell.swift */,
+				3A39AB602B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				3AB75F802B29E5AC00C75658 /* images.swift in Sources */,
 				3AB75F342B27783F00C75658 /* SceneDelegate.swift in Sources */,
 				3AB75F4C2B277CEE00C75658 /* InfoView.swift in Sources */,
+				3A39AB612B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

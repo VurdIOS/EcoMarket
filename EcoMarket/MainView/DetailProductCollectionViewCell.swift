@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol DetailProductCollectionViewCellDelegate {
-//    var orderedProducts: [Product] { get set }
+protocol DetailProductCollectionViewCellDelegate: AnyObject {
     func append(products: Product)
+    func minus(products: Product)
 }
 
 class DetailProductCollectionViewCell: UICollectionViewCell {
@@ -20,12 +20,11 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
             amountLabel.text = String(amountProduct)
         }
     }
-    var delegate: DetailProductCollectionViewCellDelegate?
+    weak var delegate: DetailProductCollectionViewCellDelegate?
     
     var Data: Product? {
         didSet {
             guard let Data = Data else {
-                print("Huyayaa")
                 return }
             productName.text = Data.title
             productCost.text = "\(Data.price.components(separatedBy: ".")[0]) c"
@@ -130,6 +129,7 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
         HStackAmountBlock.addArrangedSubview(buttonMinus)
         HStackAmountBlock.addArrangedSubview(amountLabel)
         HStackAmountBlock.addArrangedSubview(buttonPlus)
+    
         
         
         
@@ -192,29 +192,25 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
     @objc func plusButtonTapped() {
         if amountProduct >= 1 {
             amountProduct += 1
-            Data?.quantity += 1
             delegate?.append(products: Data!)
-        
         }
     }
     
     @objc func minusButtonTapped() {
         if amountProduct == 1 {
             amountProduct -= 1
-            Data?.quantity -= 1
+            delegate?.minus(products: Data!)
             changeHiddenStateOfAmountBlock()
         } else if amountProduct >= 1 {
             amountProduct -= 1
-            Data?.quantity -= 1
-            
+            delegate?.minus(products: Data!)
         }
     }
     
     @objc func addButtonTapped() {
-        delegate?.append(products: Data!)
         if amountProduct == 0 {
-            amountProduct = 1
-            Data?.quantity += 1
+            amountProduct += 1
+            delegate?.append(products: Data!)
             changeHiddenStateOfAmountBlock()
         }
     }

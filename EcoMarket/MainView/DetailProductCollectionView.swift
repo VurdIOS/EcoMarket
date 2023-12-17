@@ -10,7 +10,7 @@ import UIKit
 
 
 class DetailProductCollectionView: UIViewController {
-    private let collectionView: UICollectionView = {
+    private let productsCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.register(
             DetailProductCollectionViewCell.self,
@@ -21,17 +21,17 @@ class DetailProductCollectionView: UIViewController {
     }()
     
     let segment = UISegmentedControl()
+
     var startTypeProduct: Int!
     var productsCategories: [ProductCategory] = []
     var products: [Product] = [] {
         didSet {
-            print("\(products.count) products")
             checkSegmentedControllerState()
         }
     }
     var sortedProducts: [Product] = [] {
         didSet {
-            collectionView.reloadData()
+            productsCollectionView.reloadData()
         }
     }
     
@@ -49,9 +49,13 @@ class DetailProductCollectionView: UIViewController {
     
     var orderedProducts: [Product] = [] {
         didSet {
-            print(orderedProducts)
-        }
+            let cost = sumOrderedPrices(products: orderedProducts)
+            cartWidget.setTitle("Козина \(cost) с", for: .normal)
+            }
+            
     }
+
+    
     
 
     let searchController = UISearchController()
@@ -66,10 +70,13 @@ class DetailProductCollectionView: UIViewController {
         setupSegmentedController()
         setupConstraints()
         fetchProducts()
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        productsCollectionView.delegate = self
+
+        productsCollectionView.dataSource = self
+
     }
-    // TODO -  СДелать красивее›
+
+    // TODO -  СДелать красивее› Еще баг с добавлением продуктов, добавляеются из соседних страниц
     private func checkSegmentedControllerState() {
         var sorted: [Product] = []
         if segmentedController.selectedSegmentIndex == 0 {
@@ -83,6 +90,17 @@ class DetailProductCollectionView: UIViewController {
             }
         }
         sortedProducts = sorted
+
+    }
+    private func sumOrderedPrices(products: [Product]) -> Int {
+        let cost = products.reduce(0) { partialResult, product in
+            var partResult = partialResult
+            let products = (product.price.components(separatedBy: ".")[0])
+            let cost = Int(products)!
+            partResult += cost * product.quantity
+            return partResult
+        }
+        return cost
     }
     
     private func setupSegmentedController() {
@@ -104,14 +122,16 @@ class DetailProductCollectionView: UIViewController {
     private func setupSearchBar() {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.automaticallyShowsCancelButton = false
-        searchController.searchBar.placeholder = "Fast search"
+        searchController.searchBar.placeholder = "Поиск продуктов"
         searchController.searchBar.setImage(UIImage(named: "TabBarHome"), for: .search, state: .normal)
     }
     
     private func setupConstraints() {
+        
         view.addSubview(segmentedController)
-        view.addSubview(collectionView)
+        view.addSubview(productsCollectionView)
         view.addSubview(cartWidget)
+
 
         NSLayoutConstraint.activate([
             segmentedController.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
@@ -119,12 +139,16 @@ class DetailProductCollectionView: UIViewController {
             segmentedController.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 
         ])
+  
+        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 30),
-            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+            productsCollectionView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 24),
+            productsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            productsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            productsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
+        
+      
         
         NSLayoutConstraint.activate([
             cartWidget.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
@@ -158,29 +182,31 @@ class DetailProductCollectionView: UIViewController {
 }
 
 extension DetailProductCollectionView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // TODO - do not hardcoding
-        print(products.count)
-        return sortedProducts.count
-        
-        
-    }
+
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return sortedProducts.count
+
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DetailProductCollectionViewCell.id,
-            for: indexPath
-        ) as! DetailProductCollectionViewCell
-        cell.Data = sortedProducts[indexPath.item]
-        print(indexPath.item)
-        
-        return cell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: DetailProductCollectionViewCell.id,
+                for: indexPath
+            ) as! DetailProductCollectionViewCell
+            cell.Data = sortedProducts[indexPath.item]
+            cell.delegate = self
+            print("1st table")
+            
+            return cell
+       
     }
 }
+    
 extension DetailProductCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - 43)/2
-        return CGSize(width: width , height: 228)
+            let width = (view.frame.width - 43)/2
+            return CGSize(width: width , height: 228)
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 16)
@@ -188,13 +214,21 @@ extension DetailProductCollectionView: UICollectionViewDelegateFlowLayout {
 }
 
 extension DetailProductCollectionView: DetailProductCollectionViewCellDelegate {
-    
     func append(products: Product) {
-        orderedProducts.append(products)
-        print("delegater")
+        if let index = orderedProducts.firstIndex(where: { $0.id == products.id }) {
+            orderedProducts[index].quantity += 1
+        } else {
+            orderedProducts.append(products)
+        }
     }
-    
-    
+    func minus(products: Product) {
+        if let index = orderedProducts.firstIndex(where: { $0.id == products.id }) {
+            orderedProducts[index].quantity -= 1
+            if orderedProducts[index].quantity == 0 {
+                orderedProducts.remove(at: index)
+            }
+        }
+    }
 }
 //func setNavigationBar() {
 //

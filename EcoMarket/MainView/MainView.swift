@@ -45,9 +45,7 @@ class MainView: UIViewController {
             switch result {
             case .success(let products):
                 self.products = products
-                print(products)
                 collectionView.reloadData()
-                print("fetch categories done")
             case.failure(let error):
                 print(error.localizedDescription)
             }
@@ -63,7 +61,6 @@ class MainView: UIViewController {
 }
 extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("section is \(indexPath.section), row is \(indexPath.row)")
         let vc = DetailProductCollectionView()
         vc.startTypeProduct = indexPath.row + 1
         vc.productsCategories = products
