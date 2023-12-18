@@ -140,6 +140,7 @@ class DetailProductCollectionView: UIViewController {
    
     }
     
+    
 
     private func setupSearchBar() {
         searchController.hidesNavigationBarDuringPresentation = false
