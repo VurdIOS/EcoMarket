@@ -17,5 +17,8 @@ extension UIColor {
     static var CollectionCellBackgroundColor: UIColor {
         #colorLiteral(red: 0.9728776813, green: 0.9728776813, blue: 0.9728776813, alpha: 1)
     }
+    static var greyForBorders: UIColor {
+        #colorLiteral(red: 0.8238907456, green: 0.8173058033, blue: 0.8355882764, alpha: 1)
+    }
     
 }

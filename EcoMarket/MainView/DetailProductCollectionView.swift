@@ -21,17 +21,20 @@ class DetailProductCollectionView: UIViewController {
     }()
     private let categoriesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
        let flow = UICollectionViewFlowLayout()
-        flow.itemSize = CGSize(width: 100, height: 50)
+//        flow.itemSize = CGSize(width: 100, height: 50)
+        flow.scrollDirection = .horizontal
+
+//        flow.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         return flow
     }()
+    let items = ["Все", "Фрукты", "Сухофрукты", "Овощи", "Зелень", "Чай кофе", "Молочные продукты"]
     
-    private let categoriesCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    private lazy var categoriesCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: categoriesCollectionViewFlowLayout)
         collectionView.register(
             SegmentControlCollectionViewCell.self,
             forCellWithReuseIdentifier: SegmentControlCollectionViewCell.id
         )
-        collectionView.backgroundColor = .red
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -140,35 +143,37 @@ class DetailProductCollectionView: UIViewController {
 
     private func setupSearchBar() {
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.showsSearchResultsController = true
         searchController.automaticallyShowsCancelButton = false
-        searchController.searchBar.placeholder = "Поиск продуктов"
-        searchController.searchBar.setImage(UIImage(named: "TabBarHome"), for: .search, state: .normal)
+        searchController.searchBar.placeholder = "Быстрый продуктов"
+        searchController.searchBar.searchTextField.backgroundColor = .clear
+//        searchController.searchBar.setImage(UIImage(named: "TabBarHome"), for: .search, state: .normal)
     }
     
     private func setupConstraints() {
         
-        view.addSubview(segmentedController)
+//        view.addSubview(segmentedController)
         view.addSubview(productsCollectionView)
         view.addSubview(categoriesCollectionView)
         view.addSubview(cartWidget)
 
 
+//        NSLayoutConstraint.activate([
+//            categoriesCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+//            categoriesCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
+//            categoriesCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//
+//        ])
         NSLayoutConstraint.activate([
-            segmentedController.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            segmentedController.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
-            segmentedController.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-
-        ])
-        NSLayoutConstraint.activate([
-            categoriesCollectionView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 20),
+            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0 ),
             categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 200) // Пример высоты
+            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 30) // Пример высоты
         ])
         
         
         NSLayoutConstraint.activate([
-            productsCollectionView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant: 24),
+            productsCollectionView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant: 13),
             productsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             productsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             productsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
@@ -205,6 +210,7 @@ class DetailProductCollectionView: UIViewController {
             }
         }
     }
+
 }
 
 extension DetailProductCollectionView: UICollectionViewDataSource {
@@ -214,7 +220,7 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
         if collectionView == productsCollectionView {
             return sortedProducts.count
         } else {
-            return 7
+            return items.count
         }
         
 
@@ -235,7 +241,9 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
                     withReuseIdentifier: SegmentControlCollectionViewCell.id,
                     for: indexPath
                 ) as! SegmentControlCollectionViewCell
-            cell.data = "Just"
+            cell.data = items[indexPath.item]
+            cell.layer.cornerRadius = cell.frame.height/2
+            cell.clipsToBounds = true
                 print("2st table")
                 
                 return cell
@@ -251,13 +259,19 @@ extension DetailProductCollectionView: UICollectionViewDelegateFlowLayout {
             let width = (view.frame.width - 43)/2
             return CGSize(width: width , height: 228)
         } else {
-            return CGSize(width: 100 , height: 50)
+            let item = items[indexPath.item]
+            return CGSize(width: item.widthOfString(usingFont: UIFont(name: "TTNormsPro-Bold", size: 16)!) + 24, height: 27)
         }
             
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 16)
+        if collectionView == productsCollectionView {
+            return UIEdgeInsets(top: 11, left: 16, bottom: 0, right: 16)
+        } else {
+            return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        }
+        
     }
 }
 

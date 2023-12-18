@@ -28,9 +28,11 @@ class SegmentControlCollectionViewCell: UICollectionViewCell {
 
     let segmentControl: UILabel = {
        let btn = UILabel()
-        btn.backgroundColor = .AccentColor
+        btn.backgroundColor = .clear
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.layer.cornerRadius = 24
+        btn.textAlignment = .center
+        btn.textColor = .greyForBorders
+        btn.font = UIFont(name: "TTNormsPro-Bold", size: 16)
         
         return btn
     }()
@@ -48,7 +50,10 @@ class SegmentControlCollectionViewCell: UICollectionViewCell {
             
         ])
         contentView.clipsToBounds = false
-        contentView.backgroundColor = .CollectionCellBackgroundColor
+        contentView.backgroundColor = .clear
+        contentView.layer.cornerRadius = contentView.frame.height/2
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.greyForBorders.cgColor
 
     
     }

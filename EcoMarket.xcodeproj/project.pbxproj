@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A2DAFD32B30D133006070E2 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2DAFD22B30D133006070E2 /* StringExtension.swift */; };
 		3A39AB612B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A39AB602B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift */; };
 		3A86C1502B2E076D009D49DD /* OrederedProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86C14F2B2E076D009D49DD /* OrederedProducts.swift */; };
 		3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F312B27783F00C75658 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A2DAFD22B30D133006070E2 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		3A39AB602B2F12C300FEF464 /* SegmentControlCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A86C14F2B2E076D009D49DD /* OrederedProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrederedProducts.swift; sourceTree = "<group>"; };
 		3AB75F2E2B27783F00C75658 /* EcoMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB75F4D2B277E8500C75658 /* UIColorExtension.swift */,
+				3A2DAFD22B30D133006070E2 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				3AB75F462B277CBE00C75658 /* MainView.swift in Sources */,
 				3AB75F782B28D07400C75658 /* Product.swift in Sources */,
 				3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */,
+				3A2DAFD32B30D133006070E2 /* StringExtension.swift in Sources */,
 				3AB75F7A2B28D10300C75658 /* ProductCategory.swift in Sources */,
 				3AB75F742B28CF6600C75658 /* AF.swift in Sources */,
 				3AB75F7C2B28D13E00C75658 /* OrderItem.swift in Sources */,
