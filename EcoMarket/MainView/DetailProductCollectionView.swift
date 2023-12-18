@@ -19,6 +19,24 @@ class DetailProductCollectionView: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    private let categoriesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
+       let flow = UICollectionViewFlowLayout()
+        flow.itemSize = CGSize(width: 100, height: 50)
+        return flow
+    }()
+    
+    private let categoriesCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        collectionView.register(
+            SegmentControlCollectionViewCell.self,
+            forCellWithReuseIdentifier: SegmentControlCollectionViewCell.id
+        )
+        collectionView.backgroundColor = .red
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        return collectionView
+    }()
     
     let segment = UISegmentedControl()
 
@@ -70,10 +88,11 @@ class DetailProductCollectionView: UIViewController {
         setupSegmentedController()
         setupConstraints()
         fetchProducts()
+        
         productsCollectionView.delegate = self
-
+        categoriesCollectionView.delegate = self
         productsCollectionView.dataSource = self
-
+        categoriesCollectionView.dataSource = self
     }
 
     // TODO -  СДелать красивее› Еще баг с добавлением продуктов, добавляеются из соседних страниц
@@ -130,6 +149,7 @@ class DetailProductCollectionView: UIViewController {
         
         view.addSubview(segmentedController)
         view.addSubview(productsCollectionView)
+        view.addSubview(categoriesCollectionView)
         view.addSubview(cartWidget)
 
 
@@ -139,10 +159,16 @@ class DetailProductCollectionView: UIViewController {
             segmentedController.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 
         ])
-  
+        NSLayoutConstraint.activate([
+            categoriesCollectionView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 20),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 200) // Пример высоты
+        ])
+        
         
         NSLayoutConstraint.activate([
-            productsCollectionView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 24),
+            productsCollectionView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant: 24),
             productsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             productsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             productsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
@@ -185,27 +211,49 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == productsCollectionView {
             return sortedProducts.count
+        } else {
+            return 7
+        }
+        
 
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == productsCollectionView {
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: DetailProductCollectionViewCell.id,
-                for: indexPath
-            ) as! DetailProductCollectionViewCell
-            cell.Data = sortedProducts[indexPath.item]
-            cell.delegate = self
-            print("1st table")
-            
-            return cell
+                    withReuseIdentifier: DetailProductCollectionViewCell.id,
+                    for: indexPath
+                ) as! DetailProductCollectionViewCell
+                cell.Data = sortedProducts[indexPath.item]
+                cell.delegate = self
+                print("1st table")
+                
+                return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: SegmentControlCollectionViewCell.id,
+                    for: indexPath
+                ) as! SegmentControlCollectionViewCell
+            cell.data = "Just"
+                print("2st table")
+                
+                return cell
+        }
+        
        
     }
 }
     
 extension DetailProductCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == productsCollectionView {
             let width = (view.frame.width - 43)/2
             return CGSize(width: width , height: 228)
+        } else {
+            return CGSize(width: 100 , height: 50)
+        }
+            
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
