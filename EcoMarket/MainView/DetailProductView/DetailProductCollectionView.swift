@@ -91,11 +91,22 @@ class DetailProductCollectionView: UIViewController {
         setupSegmentedController()
         setupConstraints()
         fetchProducts()
+        setupTargetActions()
         
         productsCollectionView.delegate = self
         categoriesCollectionView.delegate = self
         productsCollectionView.dataSource = self
         categoriesCollectionView.dataSource = self
+//        self.tabBarController?.delegate = self
+    }
+    private func setupTargetActions() {
+        cartWidget.addTarget(self, action: #selector(cartWidgetTapped), for: .touchUpInside)
+    }
+    @objc private func cartWidgetTapped() {
+        let vc = CartView()
+        vc.productsInCart = orderedProducts
+        navigationController?.pushViewController(vc, animated: true)
+
     }
 
     // TODO -  СДелать красивее› Еще баг с добавлением продуктов, добавляеются из соседних страниц
@@ -293,6 +304,14 @@ extension DetailProductCollectionView: DetailProductCollectionViewCellDelegate {
         }
     }
 }
+
+//extension DetailProductCollectionView: UITabBarControllerDelegate {
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        let viewController  = tabBarController.viewControllers?[1] as! CartView
+//        viewController.productsInCart = orderedProducts
+//        return true
+//    }
+//}
 //func setNavigationBar() {
 //
 //    self.navigationItem.setHidesBackButton(true, animated:false)
