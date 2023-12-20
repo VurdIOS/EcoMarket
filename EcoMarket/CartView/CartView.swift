@@ -11,10 +11,16 @@ class CartView: UIViewController {
     
     var productsInCart: [Product]? {
         didSet {
-            let costOfProducts = sumOrderedPrices(products: productsInCart!)
+            let costOfProducts = sumOrderedPrices(products: productsInCart ?? [])
             summCostLabel.text = String(costOfProducts)
             deliveryCostLabel.text = "150"
             sumSumCostLabel.text = String(costOfProducts + 150)
+        }
+    }
+    
+    private var shared: [Product]? {
+        didSet{
+            productsInCart = shared
         }
     }
     
@@ -30,10 +36,7 @@ class CartView: UIViewController {
     
     private let categoriesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
        let flow = UICollectionViewFlowLayout()
-//        flow.itemSize = CGSize(width: 100, height: 50)
         flow.scrollDirection = .horizontal
-
-//        flow.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         return flow
     }()
     
@@ -158,6 +161,8 @@ class CartView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        shared = SharedData.shared.dataToPass
+        
         VStackAmountNamesBlock.addArrangedSubview(summTitleLabel)
         VStackAmountNamesBlock.addArrangedSubview(deliveryTitleLabel)
         VStackAmountNamesBlock.addArrangedSubview(sumSumTitleLabel)
@@ -171,6 +176,7 @@ class CartView: UIViewController {
         view.addSubview(confirmButton)
         view.addSubview(HStackMoneyBlock)
         view.backgroundColor = .white
+        
         
         setupNavController()
         productsInCartCollectionView.delegate = self
@@ -197,6 +203,13 @@ class CartView: UIViewController {
         ])
         
     }
+    // Категорически переделать
+    override func updateViewConstraints() {
+ 
+        view.frame.size.height = 600
+        view.frame.origin.y = UIScreen.main.bounds.height - 400 - 282
+        super.updateViewConstraints()
+    }
     
     private func sumOrderedPrices(products: [Product]) -> Int {
         let cost = products.reduce(0) { partialResult, product in
@@ -211,12 +224,13 @@ class CartView: UIViewController {
     
     
     private func setupNavController() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Очистить", style: .done, target: self, action: #selector(something))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Очистить", style: .done, target: self, action: #selector(cleanButtonTapped))
         title = "Корзина"
     }
     
-    @objc private func something() {
-        productsInCart = []
+    @objc private func cleanButtonTapped() {
+        SharedData.shared.dataToPass = []
+        shared = SharedData.shared.dataToPass
         productsInCartCollectionView.reloadData()
     }
     
@@ -227,19 +241,14 @@ extension CartView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productsInCart?.count ?? 0
-       
-         
-        
-
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: CartViewCollectionViewCell.id,
                     for: indexPath
                 ) as! CartViewCollectionViewCell
                 cell.Data = productsInCart?[indexPath.item]
-//                cell.delegate = self
-                print("1st table")
                 
                 return cell
     }

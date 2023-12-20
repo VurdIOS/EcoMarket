@@ -7,10 +7,6 @@
 
 import UIKit
 
-
-protocol CartViewCollectionViewCellDelegate: AnyObject {
-    
-}
 class CartViewCollectionViewCell: UICollectionViewCell {
     static let id = "CartViewCollectionViewCell"
     
@@ -26,8 +22,8 @@ class CartViewCollectionViewCell: UICollectionViewCell {
                 return }
             let cost = Data.price.components(separatedBy: ".")[0]
             productNameLabel.text = Data.title
-            productCost.text = "\(Data.price.components(separatedBy: ".")[0]) c"
-            productDiscription.text = "Цена \(Data.price.components(separatedBy: ".")[0]) за шт"
+            productCost.text = "\(cost) c"
+            productDiscription.text = "Цена \(cost) за шт"
             amountProduct = Data.quantity
             let url = URL(string: Data.image)
             imageView.kf
@@ -70,10 +66,9 @@ class CartViewCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         imageView.clipsToBounds = true
+        
         return imageView
     }()
     
@@ -82,10 +77,7 @@ class CartViewCollectionViewCell: UICollectionViewCell {
         btn.setTitle("-", for: .normal)
         btn.backgroundColor = .AccentColor
         btn.translatesAutoresizingMaskIntoConstraints = false
-//        btn.layer.cornerRadius = 16
-//        btn.frame.size.width = 32
-//        btn.frame.size.height = 32
-        
+
         return btn
     }()
     
@@ -130,11 +122,6 @@ class CartViewCollectionViewCell: UICollectionViewCell {
         return stack
     }()
     
-    
- 
-
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupTargetsForButtons()
@@ -144,12 +131,6 @@ class CartViewCollectionViewCell: UICollectionViewCell {
         HStackAmountBlock.addArrangedSubview(amountLabel)
         HStackAmountBlock.addArrangedSubview(buttonPlus)
 
-        
-        
-        
-        
-        
-        
         contentView.addSubview(imageView)
         contentView.addSubview(productNameLabel)
         contentView.addSubview(productDiscription)
@@ -157,28 +138,39 @@ class CartViewCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(HStackAmountBlock)
         imageView.addSubview(deleteButton)
         
-        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant: 4).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4).isActive = true
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 98).isActive = true
-        deleteButton.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 2).isActive = true
-        deleteButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -2).isActive = true
-        deleteButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        deleteButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        productNameLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8).isActive = true
-        productNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        productNameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -4).isActive = true
-        productDiscription.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8).isActive = true
-        productDiscription.topAnchor.constraint(equalTo: productNameLabel.bottomAnchor, constant: 4).isActive = true
-        productCost.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8).isActive = true
-        productCost.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        NSLayoutConstraint.activate([
+            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor,constant: 4),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            imageView.widthAnchor.constraint(equalToConstant: 98)
+        ])
         
-        HStackAmountBlock.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -4).isActive = true
-        HStackAmountBlock.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4).isActive = true
-        
-//        HStackAmountBlock.topAnchor.constraint(equalTo: productCost.bottomAnchor, constant: 16).isActive = true
-        HStackAmountBlock.widthAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
-        HStackAmountBlock.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        NSLayoutConstraint.activate([
+            deleteButton.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 2),
+            deleteButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -2),
+            deleteButton.widthAnchor.constraint(equalToConstant: 32),
+            deleteButton.heightAnchor.constraint(equalToConstant: 32)
+        ])
+        NSLayoutConstraint.activate([
+            productNameLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8),
+            productNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            productNameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -4)
+        ])
+        NSLayoutConstraint.activate([
+            productDiscription.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8),
+            productDiscription.topAnchor.constraint(equalTo: productNameLabel.bottomAnchor, constant: 4)
+        ])
+        NSLayoutConstraint.activate([
+            productCost.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8),
+            productCost.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            
+        ])
+        NSLayoutConstraint.activate([
+            HStackAmountBlock.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -4),
+            HStackAmountBlock.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            HStackAmountBlock.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            HStackAmountBlock.heightAnchor.constraint(equalToConstant: 32)
+        ])
     }
     
     required init?(coder: NSCoder) {
@@ -207,7 +199,13 @@ class CartViewCollectionViewCell: UICollectionViewCell {
     private func setupTargetsForButtons() {
         buttonPlus.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         buttonMinus.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
+    @objc func deleteButtonTapped() {
+        
+        
+    }
+    
     
     @objc func plusButtonTapped() {
         if amountProduct >= 1 {

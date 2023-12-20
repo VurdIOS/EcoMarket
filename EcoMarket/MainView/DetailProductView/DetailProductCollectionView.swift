@@ -35,6 +35,7 @@ class DetailProductCollectionView: UIViewController {
             SegmentControlCollectionViewCell.self,
             forCellWithReuseIdentifier: SegmentControlCollectionViewCell.id
         )
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -56,6 +57,15 @@ class DetailProductCollectionView: UIViewController {
         }
     }
     
+    var orderedProducts: [Product] = [] {
+        didSet {
+            let cost = sumOrderedPrices(products: orderedProducts)
+            cartWidget.setTitle("Козина \(cost) с", for: .normal)
+            SharedData.shared.dataToPass = orderedProducts
+            }
+            
+    }
+    
     let cartWidget: UIButton = {
        let btn = UIButton()
         btn.setImage(UIImage(named: "TabBarCart"), for: .normal)
@@ -68,13 +78,7 @@ class DetailProductCollectionView: UIViewController {
         return btn
     }()
     
-    var orderedProducts: [Product] = [] {
-        didSet {
-            let cost = sumOrderedPrices(products: orderedProducts)
-            cartWidget.setTitle("Козина \(cost) с", for: .normal)
-            }
-            
-    }
+ 
 
     
     
@@ -105,7 +109,8 @@ class DetailProductCollectionView: UIViewController {
     @objc private func cartWidgetTapped() {
         let vc = CartView()
         vc.productsInCart = orderedProducts
-        navigationController?.pushViewController(vc, animated: true)
+//        vc.
+        present(vc, animated: true)
 
     }
 
@@ -170,12 +175,6 @@ class DetailProductCollectionView: UIViewController {
         view.addSubview(cartWidget)
 
 
-//        NSLayoutConstraint.activate([
-//            categoriesCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-//            categoriesCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20),
-//            categoriesCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-//
-//        ])
         NSLayoutConstraint.activate([
             categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0 ),
             categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -262,6 +261,14 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
         }
         
        
+    }
+}
+
+extension DetailProductCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailProductInfoView()
+        vc.product = sortedProducts[indexPath.item]
+        present(vc, animated: true)
     }
 }
     
