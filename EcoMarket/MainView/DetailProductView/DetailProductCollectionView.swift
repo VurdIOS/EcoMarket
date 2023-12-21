@@ -62,6 +62,7 @@ class DetailProductCollectionView: UIViewController {
             let cost = sumOrderedPrices(products: orderedProducts)
             cartWidget.setTitle("Козина \(cost) с", for: .normal)
             SharedData.shared.dataToPass = orderedProducts
+            CoreDataManager.shared.createOrderProduct(product: orderedProducts[0])
             }
             
     }
@@ -162,7 +163,7 @@ class DetailProductCollectionView: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.showsSearchResultsController = true
         searchController.automaticallyShowsCancelButton = false
-        searchController.searchBar.placeholder = "Быстрый продуктов"
+        searchController.searchBar.placeholder = "Быстрый поиск"
         searchController.searchBar.searchTextField.backgroundColor = .clear
 //        searchController.searchBar.setImage(UIImage(named: "TabBarHome"), for: .search, state: .normal)
     }

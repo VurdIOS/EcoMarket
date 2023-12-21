@@ -12,7 +12,7 @@ class DetailProductInfoView: UIViewController {
     var product: Product! {
         didSet {
             titleLabel.text = product.title
-            costLabel.text = (product.price.components(separatedBy: ".")[0])
+            costLabel.text = "\(product.price.components(separatedBy: ".")[0]) c"
             descriptionLabel.text = product.description
             
             

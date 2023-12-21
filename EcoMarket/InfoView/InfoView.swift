@@ -12,6 +12,10 @@ class InfoView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .MainBackgroundColor
+        
+        let pr = CoreDataManager.shared.fetchProducts()
+        
+        pr.forEach {print($0.title)}
 
         // Do any additional setup after loading the view.
     }
