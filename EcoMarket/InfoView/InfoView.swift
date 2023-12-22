@@ -13,7 +13,7 @@ class InfoView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .MainBackgroundColor
-        
+        // asd
         let pr = CoreDataManager.shared.fetchProducts()
         
         pr.forEach {print($0.title)}
