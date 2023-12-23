@@ -16,6 +16,8 @@
 		3AA592A22B34AD2B00023939 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AA592A02B34AD2B00023939 /* CoreDataModel.xcdatamodeld */; };
 		3AA592B32B34B28300023939 /* CDProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA592B12B34B28300023939 /* CDProduct+CoreDataProperties.swift */; };
 		3AA592B52B34B33000023939 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA592B42B34B33000023939 /* CoreDataManager.swift */; };
+		3AB070952B3730DB0080F0D9 /* NotEnoughtAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB070942B3730DB0080F0D9 /* NotEnoughtAlertViewController.swift */; };
+		3AB070982B37387B0080F0D9 /* ConfirmOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB070972B37387B0080F0D9 /* ConfirmOrderViewController.swift */; };
 		3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F312B27783F00C75658 /* AppDelegate.swift */; };
 		3AB75F342B27783F00C75658 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F332B27783F00C75658 /* SceneDelegate.swift */; };
 		3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB75F352B27783F00C75658 /* MainTabBarView.swift */; };
@@ -51,6 +53,8 @@
 		3AA592A12B34AD2B00023939 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		3AA592B12B34B28300023939 /* CDProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProduct+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3AA592B42B34B33000023939 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		3AB070942B3730DB0080F0D9 /* NotEnoughtAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotEnoughtAlertViewController.swift; sourceTree = "<group>"; };
+		3AB070972B37387B0080F0D9 /* ConfirmOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderViewController.swift; sourceTree = "<group>"; };
 		3AB75F2E2B27783F00C75658 /* EcoMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB75F312B27783F00C75658 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AB75F332B27783F00C75658 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +122,22 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		3AB070932B37309B0080F0D9 /* UiAlertControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3AB070942B3730DB0080F0D9 /* NotEnoughtAlertViewController.swift */,
+			);
+			path = UiAlertControllers;
+			sourceTree = "<group>";
+		};
+		3AB070962B3738500080F0D9 /* ConfirmOrderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3AB070972B37387B0080F0D9 /* ConfirmOrderViewController.swift */,
+			);
+			path = ConfirmOrderViewController;
+			sourceTree = "<group>";
+		};
 		3AB75F252B27783F00C75658 = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +157,8 @@
 		3AB75F302B27783F00C75658 /* EcoMarket */ = {
 			isa = PBXGroup;
 			children = (
+				3AB070962B3738500080F0D9 /* ConfirmOrderViewController */,
+				3AB070932B37309B0080F0D9 /* UiAlertControllers */,
 				3AA592A72B34AE5900023939 /* CoreData */,
 				3AB75F592B285E9600C75658 /* InfoView */,
 				3AB75F582B285E8A00C75658 /* HistoryView */,
@@ -335,6 +357,7 @@
 				3AB75F4A2B277CE100C75658 /* HistoryView.swift in Sources */,
 				3A05573E2B31F4830043A69E /* CartViewCollectionViewCell.swift in Sources */,
 				3AB75F362B27783F00C75658 /* MainTabBarView.swift in Sources */,
+				3AB070982B37387B0080F0D9 /* ConfirmOrderViewController.swift in Sources */,
 				3AB75F4E2B277E8500C75658 /* UIColorExtension.swift in Sources */,
 				3AB75F7E2B28D17C00C75658 /* Order.swift in Sources */,
 				3A86C1502B2E076D009D49DD /* OrederedProducts.swift in Sources */,
@@ -342,6 +365,7 @@
 				3AB75F462B277CBE00C75658 /* MainView.swift in Sources */,
 				3AB75F782B28D07400C75658 /* Product.swift in Sources */,
 				3AA592B32B34B28300023939 /* CDProduct+CoreDataProperties.swift in Sources */,
+				3AB070952B3730DB0080F0D9 /* NotEnoughtAlertViewController.swift in Sources */,
 				3AB75F322B27783F00C75658 /* AppDelegate.swift in Sources */,
 				3AA592A22B34AD2B00023939 /* CoreDataModel.xcdatamodeld in Sources */,
 				3A2DAFD32B30D133006070E2 /* StringExtension.swift in Sources */,

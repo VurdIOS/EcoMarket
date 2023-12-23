@@ -13,8 +13,11 @@ class HistoryView: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .MainBackgroundColor
 
+
         // Do any additional setup after loading the view.
     }
+    
+
     
 
     /*

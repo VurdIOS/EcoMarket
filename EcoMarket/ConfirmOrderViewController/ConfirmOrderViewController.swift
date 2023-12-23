@@ -40,14 +40,36 @@ class ConfirmOrderViewController: UIViewController {
     let VStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
+        stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
+    }()
+    
+    let totalCostLabel: UILabel = {
+       let lbl = UILabel()
+        lbl.text = "Сумма заказа ? с"
+        lbl.font = UIFont(name: "TTNormsPro-Bold", size: 20)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+        
+    }()
+    
+    let makeOrderButton: UIButton = {
+      let btn = UIButton()
+        btn.setTitle("Заказать доставку", for: .normal)
+        btn.backgroundColor = .AccentColor
+        btn.layer.cornerRadius = 12
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        
+        return btn
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         title = "Оформление заказа"
+        setupCinstraints()
 
         // Do any additional setup after loading the view.
     }
@@ -59,11 +81,27 @@ class ConfirmOrderViewController: UIViewController {
         VStack.addArrangedSubview(commentTF)
         
         view.addSubview(VStack)
+        view.addSubview(makeOrderButton)
+        view.addSubview(totalCostLabel)
         
         NSLayoutConstraint.activate([
             VStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             VStack.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
-            VStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            VStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            VStack.heightAnchor.constraint(equalToConstant: 216)
+        ])
+        
+        NSLayoutConstraint.activate([
+            makeOrderButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            makeOrderButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
+            makeOrderButton.heightAnchor.constraint(equalToConstant: 54),
+            makeOrderButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            totalCostLabel.bottomAnchor.constraint(equalTo: makeOrderButton.topAnchor, constant: -30),
+            totalCostLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            totalCostLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     

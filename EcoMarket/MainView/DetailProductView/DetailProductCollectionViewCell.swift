@@ -182,6 +182,13 @@ class DetailProductCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
     }
+    private func convertToProduct(from: [CDProduct]) -> [Product] {
+        var products: [Product] = []
+        for product in from {
+            products.append(Product(id: Int(product.id), title: product.title!, description: product.description, category: Int(product.category), image: product.image!, quantity: Int(product.quantity), price: product.price!))
+        }
+        return products
+    }
     
     private func setupTargetsForButtons() {
         buttonPlus.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)

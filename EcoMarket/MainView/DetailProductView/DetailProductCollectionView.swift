@@ -60,9 +60,9 @@ class DetailProductCollectionView: UIViewController {
     var orderedProducts: [Product] = [] {
         didSet {
             let cost = sumOrderedPrices(products: orderedProducts)
-            cartWidget.setTitle("Козина \(cost) с", for: .normal)
+            cartWidget.setTitle("Корзина \(cost) с", for: .normal)
             SharedData.shared.dataToPass = orderedProducts
-            CoreDataManager.shared.createOrderProduct(product: orderedProducts[0])
+            print(orderedProducts)
             }
             
     }
@@ -109,7 +109,7 @@ class DetailProductCollectionView: UIViewController {
     }
     @objc private func cartWidgetTapped() {
         let vc = CartView()
-        vc.productsInCart = orderedProducts
+        
 //        vc.
         present(vc, animated: true)
 
@@ -299,15 +299,19 @@ extension DetailProductCollectionView: DetailProductCollectionViewCellDelegate {
     func append(products: Product) {
         if let index = orderedProducts.firstIndex(where: { $0.id == products.id }) {
             orderedProducts[index].quantity += 1
+            CoreDataManager.shared.updateProducts(with: products.id, newQuantity: orderedProducts[index].quantity + 1)
         } else {
             orderedProducts.append(products)
+            CoreDataManager.shared.createOrderProduct(product: products)
         }
     }
     func minus(products: Product) {
         if let index = orderedProducts.firstIndex(where: { $0.id == products.id }) {
             orderedProducts[index].quantity -= 1
+            CoreDataManager.shared.updateProducts(with: products.id, newQuantity: orderedProducts[index].quantity - 1)
             if orderedProducts[index].quantity == 0 {
                 orderedProducts.remove(at: index)
+                CoreDataManager.shared.deleteProduct(with: orderedProducts[index].id)
             }
         }
     }

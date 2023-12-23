@@ -9,7 +9,7 @@ import UIKit
 
 class CartView: UIViewController {
     
-    var productsInCart: [Product]? {
+    var productsInCart: [Product]? = [] {
         didSet {
             let costOfProducts = sumOrderedPrices(products: productsInCart ?? [])
             summCostLabel.text = String(costOfProducts)
@@ -18,11 +18,7 @@ class CartView: UIViewController {
         }
     }
     
-    private var shared: [Product]? {
-        didSet{
-            productsInCart = shared
-        }
-    }
+    private var data = CoreDataManager.shared.fetchProducts()
     
     private let productsInCartCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -160,8 +156,9 @@ class CartView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTargetsForButtons()
         
-        shared = SharedData.shared.dataToPass
+        productsInCart = convertToProduct(from: CoreDataManager.shared.fetchProducts())
         
         VStackAmountNamesBlock.addArrangedSubview(summTitleLabel)
         VStackAmountNamesBlock.addArrangedSubview(deliveryTitleLabel)
@@ -203,12 +200,23 @@ class CartView: UIViewController {
         ])
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        productsInCart = convertToProduct(from: CoreDataManager.shared.fetchProducts())
+        productsInCartCollectionView.reloadData()
+    }
     // Категорически переделать
     override func updateViewConstraints() {
  
         view.frame.size.height = 600
         view.frame.origin.y = UIScreen.main.bounds.height - 400 - 282
         super.updateViewConstraints()
+    }
+    private func convertToProduct(from: [CDProduct]) -> [Product] {
+        var products: [Product] = []
+        for product in from {
+            products.append(Product(id: Int(product.id), title: product.title!, description: product.description, category: Int(product.category), image: product.image!, quantity: Int(product.quantity), price: product.price!))
+        }
+        return products
     }
     
     private func sumOrderedPrices(products: [Product]) -> Int {
@@ -229,28 +237,53 @@ class CartView: UIViewController {
     }
     
     @objc private func cleanButtonTapped() {
-        SharedData.shared.dataToPass = []
-        shared = SharedData.shared.dataToPass
+        CoreDataManager.shared.deleteAllProducts()
+        data = CoreDataManager.shared.fetchProducts()
+        productsInCart = convertToProduct(from: data)
+
         productsInCartCollectionView.reloadData()
+    }
+    private func setupTargetsForButtons() {
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func confirmButtonTapped() {
+        if Int(summCostLabel.text!)! < 300 {
+            showAlert()
+        } else {
+            let vc = ConfirmOrderViewController()
+            vc.totalCostLabel.text = "Сумма заказа \(sumSumCostLabel.text!) с"
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func showAlert() {
+        let alertVC = NotEnoughtAlertViewController()
+        
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.modalTransitionStyle = .crossDissolve
+        present(alertVC, animated: true)
     }
     
 }
 
 extension CartView: UICollectionViewDataSource {
-
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productsInCart?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: CartViewCollectionViewCell.id,
-                    for: indexPath
-                ) as! CartViewCollectionViewCell
-                cell.Data = productsInCart?[indexPath.item]
-                
-                return cell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CartViewCollectionViewCell.id,
+            for: indexPath
+        ) as! CartViewCollectionViewCell
+        cell.Data = productsInCart?[indexPath.item]
+        cell.delegate = self
+        
+        
+        return cell
     }
 }
     
@@ -262,6 +295,32 @@ extension CartView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 11, left: 16, bottom: 0, right: 16)
     }
+}
+
+extension CartView : CartViewCollectionViewCellDelegate {
+    func append(products: Product) {
+        if let index = productsInCart!.firstIndex(where: { $0.id == products.id }) {
+            
+            CoreDataManager.shared.updateProducts(with: products.id, newQuantity: productsInCart![index].quantity + 1)
+            productsInCart = convertToProduct(from: CoreDataManager.shared.fetchProducts())
+            print("delegate is done")
+        }
+    }
+    func minus(products: Product) {
+        if let index = productsInCart!.firstIndex(where: { $0.id == products.id }) {
+            CoreDataManager.shared.updateProducts(with: products.id, newQuantity: productsInCart![index].quantity - 1)
+            productsInCart = convertToProduct(from: CoreDataManager.shared.fetchProducts())
+            if productsInCart![index].quantity == 0 {
+                CoreDataManager.shared.deleteProduct(with: productsInCart![index].id)
+                productsInCart!.remove(at: index)
+                productsInCart = convertToProduct(from: CoreDataManager.shared.fetchProducts())
+                productsInCartCollectionView.reloadData()
+                
+            }
+        }
+    }
+    
+    
 }
 
 

@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol CartViewCollectionViewCellDelegate: AnyObject {
+    func append(products: Product)
+    func minus(products: Product)
+}
+
 class CartViewCollectionViewCell: UICollectionViewCell {
     static let id = "CartViewCollectionViewCell"
     
@@ -15,6 +20,7 @@ class CartViewCollectionViewCell: UICollectionViewCell {
             amountLabel.text = String(amountProduct)
         }
     }
+    weak var delegate: CartViewCollectionViewCellDelegate?
     
     var Data: Product? {
         didSet {
@@ -210,14 +216,17 @@ class CartViewCollectionViewCell: UICollectionViewCell {
     @objc func plusButtonTapped() {
         if amountProduct >= 1 {
             amountProduct += 1
+            delegate?.append(products: Data!)
         }
     }
     
     @objc func minusButtonTapped() {
         if amountProduct == 1 {
             amountProduct -= 1
+            delegate?.minus(products: Data!)
         } else if amountProduct >= 1 {
             amountProduct -= 1
+            delegate?.minus(products: Data!)
         }
     }
 }
