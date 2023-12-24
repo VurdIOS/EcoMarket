@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 enum ApiURL: String {
     case OrderList = "https://neobook.online/ecobak/order-list"
-    case OrderListPOST = "https://neobook.online/ecobak/order-create"
+    case OrderListPOST = "https://neobook.online/ecobak/order-create/"
     case ProductCategoryList = "https://neobook.online/ecobak/product-category-list"
     case ProductList = "https://neobook.online/ecobak/product-list"
 }
@@ -58,13 +58,13 @@ class NetworkManager {
         }
     }
     
-    func POSTOrderList(with: OrderPost, completion: @escaping(Result<OrderPost, AFError>) -> Void) {
+    func POSTOrderList(with: OrderPost, completion: @escaping(Result<Order, AFError>) -> Void) {
         AF.request(ApiURL.OrderListPOST.rawValue, method: .post, parameters: with, encoder: JSONParameterEncoder.default)
-            .responseDecodable(of: OrderPost.self) { response in
-//                if let data = response.data {
-//                    let responseString = String(data: data, encoding: .utf8)
-//                    print("Ответ сервера: \(responseString ?? "Нет данных")")
-//                }
+            .responseDecodable(of: Order.self) { response in
+                if let data = response.data {
+                    let responseString = String(data: data, encoding: .utf8)
+                    print("Ответ сервера: \(responseString ?? "Нет данных")")
+                }
                 switch response.result {
                 case .success(let decodedModel):
                     let oreder = decodedModel

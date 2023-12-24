@@ -23,6 +23,7 @@ class NotEnoughtAlertViewController: UIViewController {
         lbl.text = "Заказ может быть при покупке свыше 300 с"
         lbl.font = UIFont(name: "TTNormsPro-Bold", size: 24)
         lbl.numberOfLines = 0
+        lbl.textAlignment = .center
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -36,6 +37,8 @@ class NotEnoughtAlertViewController: UIViewController {
         return btn
         
     }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

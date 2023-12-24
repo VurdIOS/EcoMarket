@@ -9,15 +9,17 @@ import Foundation
 struct OrderPost: Codable {
     var products: [OrderItem]
     var phoneNumber: String
-    var addres: String
+//    var phone_number: String
+    var address: String
     var referencePoint: String
+//    var reference_point: String
     var comments: String
     
     
     enum CodingKeys: String, CodingKey {
         case products
         case phoneNumber = "phone_number"
-        case addres
+        case address
         case referencePoint = "reference_point"
         case comments
     }

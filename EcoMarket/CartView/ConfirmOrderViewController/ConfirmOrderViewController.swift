@@ -71,6 +71,7 @@ class ConfirmOrderViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         print(createOrderItemFromProduct())
+        setupNavBar()
         
         title = "Оформление заказа"
         setupCinstraints()
@@ -110,6 +111,15 @@ class ConfirmOrderViewController: UIViewController {
         ])
     }
     
+    private func setupNavBar() {
+        let backImage = UIImage(systemName: "chevron.backward")?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(popnav))
+    }
+    
+    @objc private func popnav() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     private func setupButtonsTargets() {
         makeOrderButton.addTarget(self, action: #selector(makeOrderButtonTapped), for: .touchUpInside)
         phoneNumberTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -120,12 +130,16 @@ class ConfirmOrderViewController: UIViewController {
     
     private func POSTOrder() {
         let orderPost = OrderPost(products: createOrderItemFromProduct(), phoneNumber: phoneNumberTF.text!, address: adressTF.text!, referencePoint: orientTF.text!, comments: commentTF.text!)
-        NetworkManager.shared.POSTOrderList(with: orderPost) { result in
+        NetworkManager.shared.POSTOrderList(with: orderPost) { [unowned self] result in
             switch result {
             case .success(let success):
+                let order = success
+                self.showAlert(message: "Заказ №\(order.orderNumber)" , dataMessage: "Дата и время \(order.createdAt)")
+                CoreDataManager.shared.deleteAllProducts()
+                navigationController?.popToRootViewController(animated: true)
                 print("Zaebis otpravil")
             case .failure(let failure):
-                print("Blyaaaa")
+                print(failure.localizedDescription)
             }
         }
     }
@@ -141,6 +155,18 @@ class ConfirmOrderViewController: UIViewController {
     
     @objc private func makeOrderButtonTapped() {
         POSTOrder()
+        
+    }
+    
+    private func showAlert(message: String, dataMessage: String) {
+        let alertVC = SuccessOrderAlertViewController()
+        alertVC.datamessage.text = dataMessage
+        alertVC.message.text = message
+        
+        
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.modalTransitionStyle = .crossDissolve
+        present(alertVC, animated: true)
     }
     
     
@@ -159,6 +185,3 @@ class ConfirmOrderViewController: UIViewController {
 
 }
 
-extension ConfirmOrderViewController: UITextFieldDelegate {
- 
-}
