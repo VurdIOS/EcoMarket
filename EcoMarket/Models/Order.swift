@@ -8,22 +8,22 @@
 import Foundation
 struct Order: Codable {
     var orderNumber: Int
-    var products: [OrderItem]
+//    var products: [OrderItem]
     var phoneNumber: String
-    var addres: String
+    var address: String
     var referencePoint: String
     var comments: String
     var totalAmount: String
     var createdAt: String
     var deliveryCost: Int
-    var orderedProducts: String
+    var orderedProducts: [OrderItem]
     
     
     enum CodingKeys: String, CodingKey {
         case orderNumber = "order_number"
-        case products
+//        case products
         case phoneNumber = "phone_number"
-        case addres
+        case address
         case referencePoint = "reference_point"
         case comments
         case totalAmount = "total_amount"

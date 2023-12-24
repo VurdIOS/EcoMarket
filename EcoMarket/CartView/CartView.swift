@@ -30,11 +30,6 @@ class CartView: UIViewController {
         return collectionView
     }()
     
-    private let categoriesCollectionViewFlowLayout: UICollectionViewFlowLayout = {
-       let flow = UICollectionViewFlowLayout()
-        flow.scrollDirection = .horizontal
-        return flow
-    }()
     
     private let summTitleLabel: UILabel = {
         let lbl = UILabel()
@@ -252,6 +247,7 @@ class CartView: UIViewController {
             showAlert()
         } else {
             let vc = ConfirmOrderViewController()
+            vc.orderedProducts = productsInCart!
             vc.totalCostLabel.text = "Сумма заказа \(sumSumCostLabel.text!) с"
             navigationController?.pushViewController(vc, animated: true)
         }

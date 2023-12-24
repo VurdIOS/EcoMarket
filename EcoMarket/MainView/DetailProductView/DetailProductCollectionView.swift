@@ -245,8 +245,6 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
                 ) as! DetailProductCollectionViewCell
                 cell.Data = sortedProducts[indexPath.item]
                 cell.delegate = self
-                print("1st table")
-                
                 return cell
         } else {
             let cell = collectionView.dequeueReusableCell(
@@ -256,7 +254,6 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
             cell.data = items[indexPath.item]
             cell.layer.cornerRadius = cell.frame.height/2
             cell.clipsToBounds = true
-                print("2st table")
                 
                 return cell
         }
