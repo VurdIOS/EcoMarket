@@ -17,6 +17,7 @@ class NotEnoughtAlertViewController: UIViewController {
         return img
     }()
     
+    
     let message: UILabel = {
         let lbl = UILabel()
         lbl.text = "Заказ может быть при покупке свыше 300 с"

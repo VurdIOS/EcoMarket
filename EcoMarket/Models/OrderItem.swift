@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct OrderItem: Decodable {
+struct OrderItem: Codable {
     var product: Int
     var quantity: Int
 }

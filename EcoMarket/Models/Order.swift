@@ -6,9 +6,9 @@
 //
 
 import Foundation
-struct Order: Decodable {
+struct Order: Codable {
     var orderNumber: Int
-    var products: OrderItem
+    var products: [OrderItem]
     var phoneNumber: String
     var addres: String
     var referencePoint: String
