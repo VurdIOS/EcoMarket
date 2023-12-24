@@ -9,6 +9,8 @@ import UIKit
 
 class ConfirmOrderViewController: UIViewController {
     
+    var orderedProducts: [Product] = []
+    
     let phoneNumberTF: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Номер телефона"
@@ -57,9 +59,10 @@ class ConfirmOrderViewController: UIViewController {
     let makeOrderButton: UIButton = {
       let btn = UIButton()
         btn.setTitle("Заказать доставку", for: .normal)
-        btn.backgroundColor = .AccentColor
+        btn.backgroundColor = .lightGray
         btn.layer.cornerRadius = 12
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.isEnabled = false
         
         return btn
     }()
@@ -67,9 +70,11 @@ class ConfirmOrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        print(createOrderItemFromProduct())
         
         title = "Оформление заказа"
         setupCinstraints()
+        setupButtonsTargets()
 
         // Do any additional setup after loading the view.
     }
@@ -105,15 +110,55 @@ class ConfirmOrderViewController: UIViewController {
         ])
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupButtonsTargets() {
+        makeOrderButton.addTarget(self, action: #selector(makeOrderButtonTapped), for: .touchUpInside)
+        phoneNumberTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        adressTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        orientTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        commentTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-    */
+    
+    private func POSTOrder() {
+        let orderPost = OrderPost(products: createOrderItemFromProduct(), phoneNumber: phoneNumberTF.text!, address: adressTF.text!, referencePoint: orientTF.text!, comments: commentTF.text!)
+        NetworkManager.shared.POSTOrderList(with: orderPost) { result in
+            switch result {
+            case .success(let success):
+                print("Zaebis otpravil")
+            case .failure(let failure):
+                print("Blyaaaa")
+            }
+        }
+    }
+    
+    private func createOrderItemFromProduct() -> [OrderItem] {
+        var order: [OrderItem] = []
+        for product in orderedProducts {
+            order.append(OrderItem(product: product.id, quantity: product.quantity))
+        }
 
+        return order
+    }
+    
+    @objc private func makeOrderButtonTapped() {
+        POSTOrder()
+    }
+    
+    
+    
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if phoneNumberTF.text != "", adressTF.text != "", orientTF.text != "", commentTF.text != "" {
+            makeOrderButton.isEnabled = true
+            makeOrderButton.backgroundColor = .AccentColor
+        } else {
+            makeOrderButton.isEnabled = false
+            makeOrderButton.backgroundColor = .lightGray
+        }
+
+    }
+
+}
+
+extension ConfirmOrderViewController: UITextFieldDelegate {
+ 
 }
