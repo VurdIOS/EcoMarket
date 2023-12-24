@@ -252,7 +252,6 @@ class CartView: UIViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
     private func showAlert() {
         let alertVC = NotEnoughtAlertViewController()
         
