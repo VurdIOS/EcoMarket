@@ -24,6 +24,7 @@ class HistoryView: UIViewController {
             ordersCollectionView.reloadData()
         }
     }
+    // just for fun
     
     let exampleorder = OrderPost(products: [OrderItem(product: 2, quantity: 200)], phoneNumber: "213123", address: "kjmknmiknm", referencePoint: "12312312", comments: "123123")
 
@@ -106,7 +107,7 @@ extension HistoryView: UICollectionViewDataSource {
 extension HistoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let width = (view.frame.width - 32)
-            return CGSize(width: width , height: 94)
+            return CGSize(width: width , height: 70)
     }
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 //            return UIEdgeInsets(top: 11, left: 16, bottom: 0, right: 16)
