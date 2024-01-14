@@ -19,11 +19,9 @@
 
 Приложение полностью функционирует! 
 
-
-
 ## Стартовый экран
 <div align="center">
-  <img src="https://github.com/VurdIOS/CounterApp/blob/main/ScreenShotsForREADME/StartViewSH.png" width="250" height="541" alt="Стартовый экран" />
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/MainScreen.png?raw=true" width="250" height="541" alt="Стартовый экран" />
 </div>
 
 ## Основной функционал
