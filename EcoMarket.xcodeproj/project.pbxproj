@@ -56,7 +56,7 @@
 		3A99E2F52B3343D000A17F86 /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
 		3A99E2F82B33516200A17F86 /* DetailProductInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductInfoView.swift; sourceTree = "<group>"; };
 		3A9ABD062B3870C900F7FF60 /* OrderPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPost.swift; sourceTree = "<group>"; };
-		3A9ABD092B387ED900F7FF60 /* HistoryViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		3A9ABD092B387ED900F7FF60 /* HistoryViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryViewCollectionViewCell.swift; path = "/Users/kama/Desktop/Swift/Own projects/EcoMarket/EcoMarket/HistoryView/CollectionView/HistoryViewCollectionViewCell.swift"; sourceTree = "<absolute>"; };
 		3A9ABD0C2B38937200F7FF60 /* DetailsOrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A9ABD0E2B38938700F7FF60 /* DetailsOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOrderViewController.swift; sourceTree = "<group>"; };
 		3A9ABD102B38B19C00F7FF60 /* SuccessOrderAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessOrderAlertViewController.swift; sourceTree = "<group>"; };

@@ -264,9 +264,16 @@ extension DetailProductCollectionView: UICollectionViewDataSource {
 
 extension DetailProductCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailProductInfoView()
-        vc.product = sortedProducts[indexPath.item]
-        present(vc, animated: true)
+        if collectionView == productsCollectionView {
+            let vc = DetailProductInfoView()
+            vc.product = sortedProducts[indexPath.item]
+            present(vc, animated: true)
+        } else {
+            segmentedController.selectedSegmentIndex = indexPath.item
+            checkSegmentedControllerState()
+            productsCollectionView.reloadData()
+        }
+        
     }
 }
     
