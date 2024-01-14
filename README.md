@@ -20,40 +20,50 @@
 Приложение полностью функционирует! 
 
 ## Стартовый экран
+На нем представлены категории продуктов которые загружаются с сервера
 <div align="center">
   <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/MainScreen.png?raw=true" width="250" height="541" alt="Стартовый экран" />
 </div>
 
 ## Основной функционал
-Также есть возможность прибавлять не только +1 но и +2, +5 и +10. В будущем сделаю кастомный вариант.
+Это заказ непосредственно продуктов. Данный список продуктов мы получаем с сервера и используя UICollectionView с кастомными UICollectionViewCell представляем на экране.
+Также из данных карточек мы можем добавлять продукты в корзину, как мы видем на виджете корзины. Далее мы имеем UICollectionView который выступает в роли UISegmentController, он же и позволяет менять выводимые продукты по категориям
 <div align="center">
-  <img src="https://github.com/VurdIOS/CounterApp/blob/main/ScreenShotsForREADME/demonstrationSH.png?raw=true" width="250" height="541" alt="Основной функционал" />
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/OrderProductScreen.png?raw=true" width="250" height="541" alt="Основной функционал" />
 </div>
 
-## Экран настроек
-Пока здесь можно настроить только число с которого будет начинаться отсчет
+## Экран предпросмотра корзины
+Здесь мы можем увидеть соджержимое корзины, редактировать количество товаров, а также видим общую стоимость с доставкой
 <div align="center">
-  <img src="https://github.com/VurdIOS/CounterApp/blob/main/ScreenShotsForREADME/SettingsSH.png?raw=true" width="250" height="541" alt="Экран настроек" />
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/PreCartScreen.png?raw=true" width="250" height="541" alt="Виджет корзины" />
 </div>
 
-## Alert
-Простенький Alert который предотвратит случайное обнуление счетчика
+## Экран корзины
+Практически полностью дублирует виджет, точнее виджет дублирует корзину)))
 <div align="center">
-  <img src="https://github.com/VurdIOS/CounterApp/blob/main/ScreenShotsForREADME/AlertSH.png?raw=true" width="250" height="541" alt="Alert" />
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/CartScreen.png?raw=true" width="250" height="541" alt="корзина" />
 </div>
 
-## Cохранение счетчиков
-Возможно кому-то необходимо посчитать несколько позиций и как то разделять их. Для этого здесь есть возможность сохранения счетчика и его названия.
+## Экран истории заказов
+На данном экране представлена история заказов которую мы получаем с сервера
 <div align="center">
-  <img src="https://github.com/VurdIOS/CounterApp/blob/main/ScreenShotsForREADME/CountersList.png?raw=true" width="250" height="541" alt="Cохранение счетчиков" />
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/HistoryOfOrdersScreen.png?raw=true" width="250" height="541" alt="История" />
 </div>
 
-## Редактирование сохраненных счетчиков
-Также есть удобная возможность удалить все сохраненные счетчики или удалять их по одному
+## Алерты
+Также по всему приложению стоят разнообразные алерты, здесь представлено ограничение на сумму заказа, также есть на отсутствие интернета и тд.
 
 
 <div align="center">
-  <img src="https://github.com/VurdIOS/CounterApp/blob/main/ScreenShotsForREADME/DeleteCounters.png?raw=true" width="250" height="541" alt="Редактирование сохраненных счетчиков" />
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/alert.png?raw=true" width="250" height="541" alt="Редактирование сохраненных счетчиков" />
+</div>
+
+## Экран информации
+Здесь представлена информация о компании, номера телефонов, соц.сети и тд.
+
+
+<div align="center">
+  <img src="https://github.com/VurdIOS/EcoMarket/blob/main/ScreenShotsForREADME/InfoScreen.png?raw=true" width="250" height="541" alt="Редактирование сохраненных счетчиков" />
 </div>
 
 
@@ -61,11 +71,10 @@
 ---
 
 
-## Можно сказать это мое первое осмысленное приложение
+## Это был хороший опыт, приступаем к следующему проложению)
 
 ---
 
-## Что касается кода, не знаю в какой момент ты это читаешь, возможно я это уже сделал и забыл про эту строку) его нужно хорошенько оптимизировать, причесать, сделать переносы те же самые)
 
 
 
