@@ -9,7 +9,7 @@
 - CoreData
 - AutoLayout
 - Alamofire
-- KingFish
+- KingFisher
 - iOS SDK, XCODE и тд.
 
 ### Представляю вашему вниманию приложение для доставки продуктов!
